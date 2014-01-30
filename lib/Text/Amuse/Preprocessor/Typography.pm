@@ -172,6 +172,80 @@ sub _typography_filter_ru {
   # em-dash —
   $l =~ s/(?<=\S) +-{1,3} +(?=\S)/ — /gs;
   $l =~ s/(\. ){2,3}\./.../g;
+
+
+  # NON-BREAKING SPACE INSERTIONS
+
+  # before em dash (—) and en dash (−)
+  $l =~ s/ (\x{2013}|\x{2014}|\x{2212})/\x{a0}$1/g;
+
+  # space before, but only if there is a number, otherwise doesn't
+  # make sense.
+
+  $l =~ s/(?<=\d)
+          [ ]+ # white space
+          (
+              # months
+              января | февраля | марта    | апреля  | мая    | июня    |
+              июля   | августа | сентября | октября | ноября | декабря |
+
+              # units
+              г|кг|мм|дм|см|м|км|л|В|А|ВТ|W|°C
+          )
+          \b # word boundary
+         /\x{a0}$1/gsx;
+  
+  # space after:
+  $l =~ s/\b # start with a word boundary
+          ( 
+              # prepositions
+              в|к|о|с|у|
+              В|К|О|С|У|
+              на|от|об|из|за|по|до|во|та|ту|то|те|ко|со|
+              На|От|Об|Из|За|По|До|Во|Со|Ко|Та|Ту|То|Те|
+
+              # conjuctions
+              А |А,|
+              а |а,|
+              И |И,|
+              и |и,|
+              но|но,|
+              Но|Но,|
+
+              # obuiquitous "da"
+              да|да,|Да|Да,|
+
+              # particles with space after
+              не|ни|
+              Не|Ни|
+
+              # interjections, space after
+              ну|ну,|
+              Ну|Ну,|
+
+              # abbreviations
+              с\.|ч\.|
+              см\.|См\.|
+              им\.|Им\.|
+              т\.|п\.
+          )
+          [ ]+ # white space
+          (?=\S) # and look ahead for something that is not a white
+                 # space or end of line
+         /$1\x{a0}/gsx;
+
+
+  # and a space before
+  $l =~ s/(?<=\S) # look behind for something that is not \n
+          [ ]+ # one or more space
+          (
+              # particles
+              б|ж|ли|же|ль|бы|бы,|же,
+          )
+          (?=[\W]) # white space follows or something that is not a word
+         /\x{a0}$1/gsx;
+
+
   return $l;
 }
 
@@ -242,25 +316,8 @@ The languages supported are C<en>, C<fi>, C<hr>, C<sr>, C<ru>, C<es>.
 
 Returns the adjusted string.
 
-
 =head1 SEE ALSO
 
-Text::Muse
-Text::Muse::Formats
-Text::Muse::EPUB
-
-The Muse homepage: http://mwolson.org/projects/EmacsMuse.html
-
-The Anarchist Library project: http://theanarchistlibrary.org
-
-=head1 AUTHOR
-
-Marco Pessotto, marco@theanarchistlibrary.org
-
-=head1 LICENSE
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself, either Perl version 5.10.1 or,
-at your option, any later version of Perl 5 you may have available.
+L<Text::Amuse::Preprocessor>
 
 =cut
