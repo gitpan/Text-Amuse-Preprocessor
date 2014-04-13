@@ -11,9 +11,11 @@ t/boilerplate.t
 t/changes.t
 t/html.t
 t/manifest.t
+t/memory-cycles.t
 t/pod-coverage.t
 t/pod.t
 t/russian.t
+t/subs.t
 t/typography.t
 META.yml                                 Module YAML meta-data (added by MakeMaker)
 META.json                                Module JSON meta-data (added by MakeMaker)
