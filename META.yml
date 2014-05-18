@@ -23,4 +23,4 @@ requires:
   perl: 5.010001
 resources:
   repository: https://gitorious.org/text-amuse-preprocessor
-version: 0.08
+version: 0.09
