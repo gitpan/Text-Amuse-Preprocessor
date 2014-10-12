@@ -19,17 +19,18 @@ WriteMakefile(
     },
     PREREQ_PM => {
         'HTML::PullParser' => 0,
-        'LWP::UserAgent' => 0,
+        'Text::Amuse' => '0.15',
     },
     EXE_FILES => [
         'bin/muse-rearrange-footnotes.pl',
+        'bin/muse-check-footnotes.pl',
         'bin/html-to-muse.pl',
        ],
     dist  => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean => { FILES => 'Text-Amuse-Preprocessor-*' },
     META_MERGE => {
         resources => {
-            repository => 'https://gitorious.org/text-amuse-preprocessor'
+            repository => 'https://github.com/melmothx/text-amuse-preprocessor',
            },
     },
 );

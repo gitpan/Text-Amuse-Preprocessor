@@ -4,7 +4,7 @@
       "Marco Pessotto <melmothx@gmail.com>"
    ],
    "dynamic_config" : 1,
-   "generated_by" : "ExtUtils::MakeMaker version 6.86, CPAN::Meta::Converter version 2.120351",
+   "generated_by" : "ExtUtils::MakeMaker version 6.98, CPAN::Meta::Converter version 2.140640",
    "license" : [
       "perl_5"
    ],
@@ -33,7 +33,7 @@
       "runtime" : {
          "requires" : {
             "HTML::PullParser" : "0",
-            "LWP::UserAgent" : "0",
+            "Text::Amuse" : "0.15",
             "perl" : "5.010001"
          }
       }
@@ -41,8 +41,8 @@
    "release_status" : "stable",
    "resources" : {
       "repository" : {
-         "url" : "https://gitorious.org/text-amuse-preprocessor"
+         "url" : "https://github.com/melmothx/text-amuse-preprocessor"
       }
    },
-   "version" : "0.09"
+   "version" : "0.20"
 }

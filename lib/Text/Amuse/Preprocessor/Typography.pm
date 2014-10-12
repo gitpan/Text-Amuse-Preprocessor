@@ -13,25 +13,12 @@ our @ISA = qw(Exporter);
 our @EXPORT_OK = qw/typography_filter linkify_filter
                    get_typography_filter/;
 
-our $VERSION = '0.05';
+use Text::Amuse::Preprocessor::TypographyFilters;
+
 
 sub linkify_filter {
-  my $l = shift;
-  $l =~ s{
-	   (?<!\[) # be sure not to redo the same thing, looking behind
-	   ((https?:\/\/) # protocol
-	     (\w[\w\-\.]+\.\w+) # domain
-	     (\:\d+)? # the port
-	     (/ # a slash
-	       [^\[<>\s]* # everything that is not a space, a < > and a [
-	       [\w/] # but end with a letter or a slash
-	     )?
-	   )
-	   (?!\]) # and look around
-  	 }{[[$1][$3]]}gx;
-  return $l;
+    return Text::Amuse::Preprocessor::TypographyFilters::linkify(shift);
 }
-
 
 sub _typography_filter_common {
   my $l = shift;
@@ -251,7 +238,8 @@ sub _typography_filter_ru {
 }
 
 
-my $lang_filters = {
+sub filters {
+    return {
 		    en => \&_typography_filter_en,
 		    fi => \&_typography_filter_fi,
 		    hr => \&_typography_filter_hr,
@@ -259,11 +247,14 @@ my $lang_filters = {
 		    ru => \&_typography_filter_ru,
 		    es => \&_typography_filter_es,
 		   };
+}
 
 sub typography_filter {
   my $lang = $_[0];
   my $text = " " . $_[1] . " ";
   $text = _typography_filter_common($text);
+
+  my $lang_filters = filters();
   if ($lang and exists $lang_filters->{$lang}) {
     $text = $lang_filters->{$lang}->($text);
   }
@@ -274,6 +265,7 @@ sub typography_filter {
 sub get_typography_filter {
     my ($lang, $links) = @_;
     my @routines = (\&_typography_filter_common);
+    my $lang_filters = filters();
     if ($lang && exists $lang_filters->{$lang}) {
         push @routines, $lang_filters->{$lang};
     }
@@ -299,7 +291,7 @@ __END__
 
 =head1 NAME
 
-Text::Amuse::Preprocessor::Typography - Perl extension for pre-processing of Text::Amuse files
+Text::Amuse::Preprocessor::Typography - Perl extension for pre-processing of Text::Amuse files [DEPRECATED]
 
 =head1 SYNOPSIS
 
@@ -311,6 +303,9 @@ Text::Amuse::Preprocessor::Typography - Perl extension for pre-processing of Tex
 
 Common routines to filter the input files, fixing typography and
 language-specific rules. All the text is assumed to be already decoded.
+
+This module is B<DEPRECATED> and kept only for legacy. Please use the
+interface described in L<Text::Amuse::Preprocessor> instead.
 
 =head1 FUNCTIONS
 
@@ -346,6 +341,10 @@ replacements. If the second argument is set and true, will also fix
 the links.
 
 The sub itself will return the adjusted string.
+
+=head2 filters()
+
+Return an hashref with the filters subs.
 
 =cut
 
