@@ -19,11 +19,11 @@ Text::Amuse::Preprocessor - Helpers for Text::Amuse document formatting.
 
 =head1 VERSION
 
-Version 0.21
+Version 0.22
 
 =cut
 
-our $VERSION = '0.21';
+our $VERSION = '0.22';
 
 
 =head1 SYNOPSIS
@@ -389,7 +389,9 @@ sub html_to_muse {
 
 =head2 error
 
-Return a string with the errors caught, an empty string otherwise.
+This is set only when processing footnotes. See
+L<Text::Amuse::Preprocessor::Footnotes> documentation for the hashref
+returned when an error has been detected.
 
 =cut
 

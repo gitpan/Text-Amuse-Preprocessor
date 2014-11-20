@@ -75,6 +75,18 @@ sub characters {
                    endash => "-",
                    dash =>    "\x{2014}",
                   },
+            # according to http://en.wikipedia.org/wiki/International_variation_in_quotation_marks#Finnish_and_Swedish
+            se => {
+                   ldouble => "\x{201d}",
+                   rdouble => "\x{201d}",
+                   lsingle => "\x{2019}",
+                   rsingle => "\x{2019}",
+                   apos => "\x{2019}",
+                   # finnish uses short dash
+                   emdash => "\x{2013}",
+                   endash => "-",
+                   dash =>    "\x{2013}",
+                  },
             fi => {
                    ldouble => "\x{201d}",
                    rdouble => "\x{201d}",
@@ -142,6 +154,18 @@ sub characters {
                    emdash  => "\x{2013}",
                    endash  => "\x{2013}",
                    dash    => "\x{2014}",
+                  },
+            # http://de.wikipedia.org/wiki/Halbgeviertstrich
+            # http://en.wikipedia.org/wiki/International_variation_in_quotation_marks#German_.28Germany_and_Austria.29
+            de => {
+                   ldouble => "\x{201e}",
+                   rdouble => "\x{201c}",
+                   lsingle => "\x{201a}",
+                   rsingle => "\x{2018}",
+                   apos    => "\x{2019}",
+                   emdash  => "\x{2013}",
+                   endash  => "\x{2013}",
+                   dash    => "\x{2013}",
                   },
            };
 }
