@@ -42,8 +42,8 @@ t/testfiles/infile.muse
 t/testfiles/it.muse
 t/testfiles/mk.muse
 t/testfiles/ru.muse
-t/testfiles/se.muse
 t/testfiles/sr.muse
+t/testfiles/sv.muse
 t/typography.t
 META.yml                                 Module YAML meta-data (added by MakeMaker)
 META.json                                Module JSON meta-data (added by MakeMaker)
